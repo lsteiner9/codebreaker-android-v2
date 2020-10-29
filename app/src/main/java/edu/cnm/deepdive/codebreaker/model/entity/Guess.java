@@ -10,7 +10,7 @@ import java.util.UUID;
 
 @Entity(
     indices = {
-        @Index(value = {"guess_key"}, unique = true)
+        @Index(value = {"guess_key"}, unique = true),
         @Index(value = {"game_id" ,"submitted"})
     }
 )
