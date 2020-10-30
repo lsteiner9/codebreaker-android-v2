@@ -49,6 +49,7 @@
     app:borderWidth="0dp"
     android:backgroundTint="?android:attr/colorAccent"
     app:useCompatPadding="true"
+    app:tint="?attr/colorPrimary"
     app:layout_constraintEnd_toEndOf="parent"
     app:layout_constraintBottom_toTopOf="@id/guess_controls"/>
 

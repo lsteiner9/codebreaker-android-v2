@@ -18,7 +18,7 @@ import java.util.UUID;
         @ForeignKey(
             entity = Game.class,
             parentColumns = {"game_id"},
-            childColumns = {""},
+            childColumns = {"game_id"},
             onDelete = ForeignKey.CASCADE
         )
     }
@@ -32,7 +32,7 @@ public class Guess {
   @ColumnInfo(name = "game_id", index = true)
   private long gameId;
 
-  @ColumnInfo(name = "guess_key")
+  @ColumnInfo(name = "guess_key", typeAffinity = ColumnInfo.BLOB)
   private UUID guess_key;
 
   @NonNull
