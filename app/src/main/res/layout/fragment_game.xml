@@ -51,6 +51,6 @@
     app:useCompatPadding="true"
     app:tint="?attr/colorPrimary"
     app:layout_constraintEnd_toEndOf="parent"
-    app:layout_constraintBottom_toTopOf="@id/guess_controls"/>
+    app:layout_constraintTop_toTopOf="parent"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
