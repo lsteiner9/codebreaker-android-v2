@@ -7,7 +7,7 @@ import edu.cnm.deepdive.codebreaker.model.entity.Guess;
 public class GuessWithGame extends Guess {
 
   @Relation(
-      entity = Guess.class,
+      entity = Game.class,
       entityColumn = "game_id",
       parentColumn = "game_id"
   )

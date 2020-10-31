@@ -14,6 +14,7 @@ import edu.cnm.deepdive.codebreaker.model.entity.Game;
 import edu.cnm.deepdive.codebreaker.model.entity.Guess;
 import edu.cnm.deepdive.codebreaker.model.entity.Match;
 import edu.cnm.deepdive.codebreaker.model.entity.Score;
+import edu.cnm.deepdive.codebreaker.model.pojo.GuessWithGame;
 import edu.cnm.deepdive.codebreaker.service.CodebreakerDatabase.Converters;
 import java.nio.ByteBuffer;
 import java.util.Date;
