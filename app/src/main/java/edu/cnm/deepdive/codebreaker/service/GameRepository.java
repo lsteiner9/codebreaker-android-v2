@@ -137,9 +137,9 @@ public class GameRepository {
     String badCharacters =
         text.replaceAll(
             String.format(VALID_CHARACTER_PATTERN_FORMAT, game.getPool()), "");
-    if (badCharacters.isEmpty()) {
+    if (!badCharacters.isEmpty()) {
       throw new IllegalArgumentException(String.format(ILLEGAL_CHARACTER_FORMAT, game.getPool(),
-          text));
+          badCharacters));
     }
   }
 
