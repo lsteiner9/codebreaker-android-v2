@@ -94,5 +94,5 @@ public class Match {
     public static State integerToState(Integer value) {
       return (value != null) ? State.values()[value] : null;
     }
-    }
+  }
 }

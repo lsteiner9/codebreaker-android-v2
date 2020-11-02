@@ -14,7 +14,6 @@ import edu.cnm.deepdive.codebreaker.model.entity.Game;
 import edu.cnm.deepdive.codebreaker.model.entity.Guess;
 import edu.cnm.deepdive.codebreaker.model.entity.Match;
 import edu.cnm.deepdive.codebreaker.model.entity.Score;
-import edu.cnm.deepdive.codebreaker.model.pojo.GuessWithGame;
 import edu.cnm.deepdive.codebreaker.service.CodebreakerDatabase.Converters;
 import java.nio.ByteBuffer;
 import java.util.Date;
@@ -70,8 +69,8 @@ public abstract class CodebreakerDatabase extends RoomDatabase {
       byte[] bytes = null;
       if (value != null) {
         ByteBuffer buffer = ByteBuffer.allocate(16);
-        buffer.putLong(value.getMostSignificantBits());
-        buffer.putLong(value.getLeastSignificantBits());
+        buffer.putLong(value.getMostSignificantBits())
+            .putLong(value.getLeastSignificantBits());
         bytes = buffer.array();
       }
       return bytes;

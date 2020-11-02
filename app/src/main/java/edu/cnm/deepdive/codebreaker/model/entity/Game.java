@@ -9,6 +9,7 @@ import androidx.room.PrimaryKey;
 import java.util.Date;
 import java.util.UUID;
 
+@SuppressWarnings("NotNullFieldNotInitialized")
 @Entity(
     indices = {
         @Index(value = {"game_key"}, unique = true)
@@ -31,9 +32,14 @@ public class Game {
   @ColumnInfo(name = "game_key", typeAffinity = ColumnInfo.BLOB)
   private UUID gameKey;
 
+  // Long instead of long because it must be nullable (the user can play local games).
   @ColumnInfo(name = "match_id", index = true)
   private Long matchId;
 
+  @NonNull
+  private String pool;
+
+  @NonNull
   private String code;
 
   @ColumnInfo(name = "code_length", index = true)
@@ -42,6 +48,7 @@ public class Game {
   @NonNull
   @ColumnInfo(index = true)
   private Date started = new Date();
+
 
   public long getId() {
     return id;
@@ -67,11 +74,21 @@ public class Game {
     this.matchId = matchId;
   }
 
+  @NonNull
+  public String getPool() {
+    return pool;
+  }
+
+  public void setPool(@NonNull String pool) {
+    this.pool = pool;
+  }
+
+  @NonNull
   public String getCode() {
     return code;
   }
 
-  public void setCode(String code) {
+  public void setCode(@NonNull String code) {
     this.code = code;
   }
 
