@@ -49,7 +49,8 @@
     app:borderWidth="0dp"
     android:backgroundTint="?android:attr/colorAccent"
     app:useCompatPadding="true"
-    app:layout_constraintEnd_toEndOf="parent"
+    app:tint="?attr/colorPrimary"
+    app:layout_constraintStart_toStartOf="parent"
     app:layout_constraintBottom_toTopOf="@id/guess_controls"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
