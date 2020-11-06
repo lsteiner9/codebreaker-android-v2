@@ -1,11 +1,14 @@
 package edu.cnm.deepdive.codebreaker.service;
 
 import android.content.Context;
+import android.util.Log;
+import androidx.annotation.NonNull;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import edu.cnm.deepdive.codebreaker.model.dao.UserDao;
 import edu.cnm.deepdive.codebreaker.model.entity.User;
 import io.reactivex.Single;
 import io.reactivex.schedulers.Schedulers;
+import java.util.Date;
 
 public class UserRepository {
 
@@ -21,23 +24,43 @@ public class UserRepository {
     signInService = GoogleSignInService.getInstance();
   }
 
-  public Single<User> getCurrentUser() {
-    return Single.fromCallable(signInService::getAccount)
+  @SuppressWarnings("ConstantConditions")
+  public Single<User> createUser(@NonNull GoogleSignInAccount account) {
+    return Single.fromCallable(() -> {
+      User user = new User();
+      user.setDisplayName(account.getDisplayName());
+      user.setCreated(new Date());
+      user.setOauthKey(account.getId());
+      return user;
+    })
+        .flatMap((user) ->
+            userDao.insert(user)
+                .map((id) -> {
+                  if (id > 0) {
+                    user.setId(id);
+                  }
+                  return user;
+                })
+        )
+        .subscribeOn(Schedulers.io());
+
+  }
+
+  public Single<User> getServerUserProfile() {
+    return signInService.refresh()
         .flatMap((account) ->
             webService.getProfile(getBearerToken(account.getIdToken()))
-                .flatMap((user) -> userDao.selectByOauthKey(account.getId())
-                    .switchIfEmpty(
-                        userDao.insert(user)
-                            .map((id) -> {
-                              user.setId(id);
-                              return user;
-                            })
-                    )
+                .subscribeOn(Schedulers.io())
+                .flatMap((user) -> {
+                      return userDao.selectByOauthKey(account.getId())
+                          .flatMap((localUser) -> {
+                            localUser.setDisplayName(user.getDisplayName());
+                            return userDao.update(localUser)
+                                .map((count) -> localUser);
+                          });
+                    }
                 )
-            .flatMap((user) ->
-                userDao.update(user)
-                .map((numRecords) -> user)
-            )
+
         )
         .subscribeOn(Schedulers.io());
   }

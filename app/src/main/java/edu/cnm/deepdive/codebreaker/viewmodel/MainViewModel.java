@@ -2,6 +2,7 @@ package edu.cnm.deepdive.codebreaker.viewmodel;
 
 import android.app.Application;
 import android.content.SharedPreferences;
+import android.util.Log;
 import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.Lifecycle.Event;
@@ -16,6 +17,7 @@ import edu.cnm.deepdive.codebreaker.model.entity.Game;
 import edu.cnm.deepdive.codebreaker.model.entity.Guess;
 import edu.cnm.deepdive.codebreaker.model.pojo.ScoreSummary;
 import edu.cnm.deepdive.codebreaker.service.GameRepository;
+import edu.cnm.deepdive.codebreaker.service.UserRepository;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.disposables.Disposable;
 import java.security.SecureRandom;
@@ -37,10 +39,12 @@ public class MainViewModel extends AndroidViewModel implements LifecycleObserver
   private final SharedPreferences preferences;
   private final GameRepository repository;
   private final CompositeDisposable pending;
+  private final UserRepository userRepository;
 
   public MainViewModel(@NonNull Application application) {
     super(application);
     repository = new GameRepository(application);
+    userRepository = new UserRepository(application);
     game = new MutableLiveData<>();
     guess = new MutableLiveData<>();
     solved = new MutableLiveData<>();
@@ -53,6 +57,10 @@ public class MainViewModel extends AndroidViewModel implements LifecycleObserver
     preferences = PreferenceManager.getDefaultSharedPreferences(application);
     pending = new CompositeDisposable();
     startGame();
+    userRepository.getServerUserProfile()
+        .subscribe(
+            (user) -> Log.d(getClass().getSimpleName(), user.getDisplayName())
+        );
   }
 
   public LiveData<Game> getGame() {
