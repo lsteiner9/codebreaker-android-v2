@@ -17,6 +17,10 @@
       android:title="@string/title_summary"
       android:icon="@drawable/ic_summary"/>
 
+    <item
+      android:id="@+id/navigation_match"
+      android:title="@string/title_matches"/>
+
   </group>
 
   <group

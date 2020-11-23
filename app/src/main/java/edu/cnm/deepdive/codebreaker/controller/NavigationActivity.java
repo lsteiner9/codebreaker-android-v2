@@ -7,16 +7,12 @@ import android.view.MenuItem;
 import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
-import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
-import androidx.navigation.Navigation;
 import androidx.navigation.fragment.NavHostFragment;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.AppBarConfiguration.Builder;
 import androidx.navigation.ui.NavigationUI;
-import com.google.android.material.navigation.NavigationView;
 import edu.cnm.deepdive.codebreaker.R;
 import edu.cnm.deepdive.codebreaker.databinding.ActivityNavigationBinding;
 import edu.cnm.deepdive.codebreaker.service.GoogleSignInService;
@@ -68,7 +64,8 @@ public class NavigationActivity extends AppCompatActivity {
 
   private void setupNavigation() {
     appBarConfig = new Builder(
-        R.id.navigation_game, R.id.navigation_summary, R.id.navigation_settings)
+        R.id.navigation_game, R.id.navigation_summary,
+        R.id.navigation_settings, R.id.navigation_match)
         .setOpenableLayout(binding.drawerLayout)
         .build();
     //noinspection ConstantConditions
