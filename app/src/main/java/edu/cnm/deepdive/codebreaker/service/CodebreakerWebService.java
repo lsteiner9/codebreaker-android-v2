@@ -24,6 +24,9 @@ public interface CodebreakerWebService {
   @GET("users/me")
   Single<User> getProfile(@Header("Authorization") String bearerToken);
 
+  @POST("matches")
+  Single<Match> startMatch(@Header("Authorization") String bearerToken, @Body Match match);
+
   static CodebreakerWebService getInstance() {
     return InstanceHolder.INSTANCE;
   }
@@ -35,6 +38,7 @@ public interface CodebreakerWebService {
     static {
       Gson gson = new GsonBuilder()
           .excludeFieldsWithoutExposeAnnotation()
+          .setDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSZ")
           .create();
       HttpLoggingInterceptor interceptor = new HttpLoggingInterceptor();
       interceptor.setLevel(BuildConfig.DEBUG ? Level.BODY : Level.NONE);
